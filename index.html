@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Profile</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Select Your Profile</h1>
+        <div class="profiles">
+            <script>
+                const profiles = [];
+                for (let i = 1; i <= 16; i++) {
+                    profiles.push(`<div class="profile" onclick="showPinPrompt(${i})">
+                        <img src="images/profile${i}.png" alt="Profile ${i}">
+                        <p>User ${i}</p>
+                    </div>`);
+                }
+                document.write(profiles.join(''));
+            </script>
+        </div>
+    </div>
+
+    <div id="pin-modal" class="modal">
+        <div class="modal-content">
+            <h2>Enter PIN</h2>
+            <input type="password" id="pin-input" maxlength="6">
+            <button onclick="checkPin()">Submit</button>
+        </div>
+    </div>
+</body>
+</html>
