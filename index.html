@@ -1,35 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choose Profile</title>
-    <link rel="stylesheet" href="styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Profile Selection</title>
+    <link rel="stylesheet" href="styles.css" />
     <script defer src="script.js"></script>
-</head>
+  </head>
 <body>
-    <div class="container">
-        <h1>Select Your Profile</h1>
-        <div class="profiles">
-            <script>
-                const profiles = [];
-                for (let i = 1; i <= 16; i++) {
-                    profiles.push(`<div class="profile" onclick="showPinPrompt(${i})">
-                        <img src="images/profile${i}.png" alt="Profile ${i}">
-                        <p>User ${i}</p>
-                    </div>`);
-                }
-                document.write(profiles.join(''));
-            </script>
-        </div>
-    </div>
+  <!-- Sticky Header -->
+  <header>
+    <h1>Who's Watching?</h1>
+  </header>
 
-    <div id="pin-modal" class="modal">
-        <div class="modal-content">
-            <h2>Enter PIN</h2>
-            <input type="password" id="pin-input" maxlength="6">
-            <button onclick="checkPin()">Submit</button>
-        </div>
+  <!-- หน้าเลือกโปรไฟล์ -->
+  <div class="container profiles-page">
+    <div class="profiles">
+      <!-- 16 profiles -->
+      <script>
+        const names = [
+          "atom", "matchim", "kp", "emmey",
+          "praew", "chale", "fang", "many",
+          "molekul", "pinpaporn", "ploy", "ploythun",
+          "radaa", "hana", "m0ey", "view"
+        ];
+      
+        const profilesContainer = document.querySelector('.profiles');
+        for (let i = 0; i < 16; i++) {
+          profilesContainer.innerHTML += `
+            <div class="profile" onclick="showPinPrompt(${i + 1})">
+              <img src="images/profile${i + 1}.png" alt="Profile ${i + 1}" />
+              <p>${names[i]}</p>
+            </div>
+          `;
+        }
+      </script>
     </div>
+  </div>
+
+  <!-- Modal สำหรับใส่ PIN -->
+  <div id="pin-modal" class="modal">
+    <div class="modal-content">
+      <!-- ปุ่มย้อนกลับ (Back Arrow) อยู่ที่มุมบนซ้าย -->
+      <div class="modal-header">
+        <span class="back-arrow" onclick="goBack()">&larr;</span>
+      </div>
+      <!-- ข้อความบอกให้ใส่ PIN -->
+      <p class="pin-instructions">Enter your PIN to access this profile.</p>
+      <!-- ช่องกรอกรหัส 6 ช่อง -->
+      <div id="pin-inputs">
+        <input type="password" class="pin-box" maxlength="1" oninput="moveNext(this)" onkeydown="handleBackspace(event, this)" autofocus />
+        <input type="password" class="pin-box" maxlength="1" oninput="moveNext(this)" onkeydown="handleBackspace(event, this)" />
+        <input type="password" class="pin-box" maxlength="1" oninput="moveNext(this)" onkeydown="handleBackspace(event, this)" />
+        <input type="password" class="pin-box" maxlength="1" oninput="moveNext(this)" onkeydown="handleBackspace(event, this)" />
+        <input type="password" class="pin-box" maxlength="1" oninput="moveNext(this)" onkeydown="handleBackspace(event, this)" />
+        <input type="password" class="pin-box" maxlength="1" oninput="moveNext(this)" onkeydown="handleBackspace(event, this)" />
+      </div>
+      <!-- ข้อความแจ้งเตือนกรณี PIN ผิด -->
+      <p id="error-msg" class="error"></p>
+    </div>
+  </div>
 </body>
 </html>
